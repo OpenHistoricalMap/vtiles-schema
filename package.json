@@ -1,0 +1,35 @@
+{
+  "name": "ohm-vtiles-docs",
+  "version": "1.0.0",
+  "description": "OpenHistoricalMap Vector Tiles Documentation",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview --port=8081"
+  },
+  "keywords": [
+    "vector-tiles",
+    "documentation",
+    "ohm"
+  ],
+  "author": "OpenHistoricalMap",
+  "license": "MIT",
+  "dependencies": {
+    "maplibre-gl": "5.16.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "7.12.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "10.4.23",
+    "postcss": "8.5.6",
+    "tailwindcss": "3.4.19",
+    "vite": "^5.0.8"
+  },
+  "packageManager": "yarn@4.5.3+sha512.3003a14012e2987072d244c720506549c1aab73ee728208f1b2580a9fd67b92d61ba6b08fe93f6dce68fd771e3af1e59a0afa28dd242dd0940d73b95fedd4e90"
+}
