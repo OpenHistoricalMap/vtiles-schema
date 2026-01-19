@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
+import config from '../config'
 
 function Header() {
   const location = useLocation()
@@ -20,11 +21,11 @@ function Header() {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm text-gray-600">
-            <a href="https://openhistoricalmap.org" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
+            <a href={config.links.openHistoricalMap} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
               OpenHistoricalMap
             </a>
             <span className="text-gray-300">|</span>
-            <a href="https://vtiles.staging.openhistoricalmap.org" target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
+            <a href={config.links.vectorTiles} target="_blank" rel="noopener noreferrer" className="hover:text-indigo-600 transition-colors">
               Vector Tiles
             </a>
             <span className="text-gray-300">|</span>

@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import Header from '../components/Header'
-
-const LANGUAGES_GEOJSON_URL = 'http://planet-staging.openhistoricalmap.org.s3.amazonaws.com/vtiles_languages.geojson'
-const MAP_STYLE_URL = 'https://www.staging.openhistoricalmap.org/map-styles/historical/historical.json'
+import config from '../config'
 
 function LocalesMapPage() {
   const mapContainer = useRef(null)
@@ -20,7 +18,7 @@ function LocalesMapPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch(LANGUAGES_GEOJSON_URL)
+        const response = await fetch(config.api.languagesGeojsonUrl)
         if (!response.ok) throw new Error('Failed to load languages data')
         
         const geojson = await response.json()
@@ -51,7 +49,7 @@ function LocalesMapPage() {
     // Initialize map
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: MAP_STYLE_URL,
+      style: config.api.mapStyleUrl,
       center: [0, 20],
       zoom: 2,
       attributionControl: true
@@ -61,7 +59,7 @@ function LocalesMapPage() {
 
     map.current.on('load', async () => {
       try {
-        const response = await fetch(LANGUAGES_GEOJSON_URL)
+        const response = await fetch(config.api.languagesGeojsonUrl)
         if (!response.ok) throw new Error('Failed to load languages data')
         
         geojsonData = await response.json()
@@ -236,7 +234,7 @@ function LocalesMapPage() {
 
     // Update filtered layer on map
     if (map.current.getSource('languages-filtered')) {
-      fetch(LANGUAGES_GEOJSON_URL)
+      fetch(config.api.languagesGeojsonUrl)
         .then(response => response.json())
         .then(geojson => {
           const filteredFeatures = geojson.features.filter(feature => {
@@ -261,7 +259,7 @@ function LocalesMapPage() {
     }
 
     // Fetch the geojson again to get the feature
-    fetch(LANGUAGES_GEOJSON_URL)
+    fetch(config.api.languagesGeojsonUrl)
       .then(response => response.json())
       .then(geojson => {
         // Find the feature

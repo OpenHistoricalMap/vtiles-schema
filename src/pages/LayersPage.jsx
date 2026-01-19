@@ -54,36 +54,6 @@ function LayersPage({ allLayers, layersInfo, maps }) {
     return formatted
   }
 
-  const getGeometryIcon = (geometryType) => {
-    const geom = (geometryType || 'unknown').toLowerCase().replace('multi', '')
-    if (geom === 'point') {
-      // Circle/dot icon for point
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <circle cx="10" cy="10" r="4" />
-        </svg>
-      )
-    }
-    if (geom === 'linestring') {
-      // Line icon for linestring
-      return (
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 20 20" strokeLinecap="round">
-          <path d="M2 10 L18 10" />
-          <path d="M2 6 L6 10 L2 14" />
-          <path d="M18 6 L14 10 L18 14" />
-        </svg>
-      )
-    }
-    if (geom === 'polygon') {
-      // Hexagon/polygon icon for polygon
-      return (
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2 L16 6 L16 14 L10 18 L4 14 L4 6 Z" />
-        </svg>
-      )
-    }
-    return null
-  }
 
 
   if (!map) {
@@ -133,13 +103,10 @@ function LayersPage({ allLayers, layersInfo, maps }) {
                     selectedLayer?.id === layer.id ? 'bg-blue-50 border-l-4 border-l-blue-600' : ''
                   }`}
                 >
-                  <span className={`absolute top-2 right-2 px-1.5 py-0.5 rounded text-[10px] font-semibold uppercase border ${getGeometryBadgeClass(layer.geometryType)}`}>
+                  <span className={`absolute top-2 right-2 px-1 py-0.5 rounded text-[9px] font-semibold uppercase border ${getGeometryBadgeClass(layer.geometryType)}`}>
                     {formatGeometryType(layer.geometryType)}
                   </span>
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${getGeometryBadgeClass(layer.geometryType)}`}>
-                      {getGeometryIcon(layer.geometryType)}
-                    </div>
                     <div className="flex-1 min-w-0 pr-12">
                       <div className="text-sm font-semibold text-gray-800 truncate">{layer.name}</div>
                       <div className="flex items-center gap-2 mt-1 flex-wrap">

@@ -1,3 +1,5 @@
+import config from '../config'
+
 function LayerDetail({ layer, layersInfo }) {
   if (!layer) {
     return (
@@ -50,7 +52,7 @@ function LayerDetail({ layer, layersInfo }) {
             )}
             {layer.tegolaConfig && (
               <a
-                href={`https://github.com/OpenHistoricalMap/ohm-deploy/blob/staging/images/tiler-server/${layer.tegolaConfig}`}
+                href={config.links.github.getTegolaConfigUrl(layer.tegolaConfig)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-2.5 py-1 text-xs font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded border border-blue-300 transition-colors flex items-center gap-1.5"
@@ -188,20 +190,11 @@ function LayerDetail({ layer, layersInfo }) {
                         <th className="px-3 py-2.5 text-left font-semibold text-gray-700 text-xs whitespace-nowrap">Zoom</th>
                         <th className="px-3 py-2.5 text-left font-semibold text-gray-700 text-xs whitespace-nowrap">Filter</th>
                         <th className="px-3 py-2.5 text-left font-semibold text-gray-700 text-xs whitespace-nowrap">Tolerance</th>
-                        <th className="px-3 py-2.5 text-left font-semibold text-gray-700 text-xs whitespace-nowrap">Min Area</th>
                         <th className="px-3 py-2.5 text-left font-semibold text-gray-700 text-xs whitespace-nowrap">View</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                       {layer.filtersPerZoomLevel.map((filter, idx) => {
-                        // Format min_area with commas if it's a number
-                        const formatNumber = (value) => {
-                          if (!value) return '-';
-                          const num = parseFloat(value);
-                          if (isNaN(num)) return value;
-                          return num.toLocaleString('en-US');
-                        };
-                        
                         return (
                           <tr key={idx} className="hover:bg-gray-50">
                             <td className="px-3 py-2.5 whitespace-nowrap">
@@ -224,13 +217,6 @@ function LayerDetail({ layer, layersInfo }) {
                             <td className="px-3 py-2.5 whitespace-nowrap">
                               {filter.tolerance ? (
                                 <span className="text-xs text-gray-700">{filter.tolerance}</span>
-                              ) : (
-                                <span className="text-gray-400 text-xs">-</span>
-                              )}
-                            </td>
-                            <td className="px-3 py-2.5 whitespace-nowrap">
-                              {filter.min_area ? (
-                                <span className="text-xs text-gray-700">{formatNumber(filter.min_area)}</span>
                               ) : (
                                 <span className="text-gray-400 text-xs">-</span>
                               )}

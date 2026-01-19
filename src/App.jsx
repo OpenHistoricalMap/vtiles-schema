@@ -5,9 +5,7 @@ import LayersPage from './pages/LayersPage'
 import LayerDetailPage from './pages/LayerDetailPage'
 import LocalesMapPage from './pages/LocalesMapPage'
 import Header from './components/Header'
-
-const CAPABILITIES_URL = 'https://vtiles.staging.openhistoricalmap.org/capabilities'
-const LAYERS_INFO_URL = 'http://planet-staging.openhistoricalmap.org.s3.amazonaws.com/vtiles_layers_info.json'
+import config from './config'
 
 function App() {
   const [allLayers, setAllLayers] = useState([])
@@ -23,8 +21,8 @@ function App() {
         
         // Fetch capabilities and layers info
         const [capabilitiesRes, layersInfoRes] = await Promise.all([
-          fetch(CAPABILITIES_URL),
-          fetch(LAYERS_INFO_URL)
+          fetch(config.api.capabilitiesBaseUrl),
+          fetch(config.api.layersInfoUrl)
         ])
 
         if (!capabilitiesRes.ok || !layersInfoRes.ok) {
@@ -36,7 +34,7 @@ function App() {
 
         // Fetch capabilities for all maps
         const mapCapabilitiesPromises = capabilities.maps?.map(map => 
-          fetch(`https://vtiles.staging.openhistoricalmap.org/capabilities/${map.name}.json`)
+          fetch(config.api.getMapCapabilitiesUrl(map.name))
             .then(res => res.ok ? res.json() : null)
             .catch(() => null)
         ) || []

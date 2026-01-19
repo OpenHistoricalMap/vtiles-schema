@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
-
-const LANGUAGES_GEOJSON_URL = 'http://planet-staging.openhistoricalmap.org.s3.amazonaws.com/vtiles_languages.geojson'
-const MAP_STYLE_URL = 'https://www.staging.openhistoricalmap.org/map-styles/historical/historical.json'
+import config from '../config'
 
 function LocalesMap({ onClose }) {
   const mapContainer = useRef(null)
@@ -16,7 +14,7 @@ function LocalesMap({ onClose }) {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch(LANGUAGES_GEOJSON_URL)
+        const response = await fetch(config.api.languagesGeojsonUrl)
         if (!response.ok) throw new Error('Failed to load languages data')
         
         const geojson = await response.json()
@@ -47,7 +45,7 @@ function LocalesMap({ onClose }) {
     // Initialize map
     map.current = new maplibregl.Map({
       container: mapContainer.current,
-      style: MAP_STYLE_URL,
+      style: config.api.mapStyleUrl,
       center: [0, 20],
       zoom: 2,
       attributionControl: true
@@ -55,7 +53,7 @@ function LocalesMap({ onClose }) {
 
     map.current.on('load', async () => {
       try {
-        const response = await fetch(LANGUAGES_GEOJSON_URL)
+        const response = await fetch(config.api.languagesGeojsonUrl)
         if (!response.ok) throw new Error('Failed to load languages data')
         
         const geojson = await response.json()
